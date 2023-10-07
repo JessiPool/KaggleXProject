@@ -1,6 +1,6 @@
 # Affordable Housing Availability Project - Datasets and Code
 
-# Zillow Data https://data.nasdaq.com/databases/ZILLOW/data
+# Original Raw Zillow Data https://data.nasdaq.com/databases/ZILLOW/data
 
 SELECT dmain.*
 FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain
