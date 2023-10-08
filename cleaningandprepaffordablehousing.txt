@@ -1,7 +1,11 @@
 # Affordable Housing Availability Project - Datasets and Code
 
-# Original Raw Zillow Data https://data.nasdaq.com/databases/ZILLOW/data
-
+# Raw Data:
+# Zillow Housing Data, Nasdaq https://data.nasdaq.com/databases/ZILLOW/data
+# US and State Level Median Household Income Data, FRED https://fred.stlouisfed.org/searchresults/?st=median%20household%20income%20by%20state&t=real&ob=t
+# US Consumer Price Index (US Inflation Dataset 1947-2023), Pavan Narne (Kaggle.com) https://www.kaggle.com/datasets/pavankrishnanarne/us-inflation-dataset-1947-present
+# US Gross Domestic Product (GDP), Macrotrends https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product
+# National Health Expenditures, 
 SELECT dmain.*
 FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain
 INNER JOIN `affordablehousing-399803.zillowdataindicators1.Zillow Indicators` as dind
