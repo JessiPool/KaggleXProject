@@ -1,0 +1,294 @@
+# Affordable Housing Availability Project - Datasets and Code
+
+# Where to locate raw Data:
+
+# Zillow Housing Data, Nasdaq https://data.nasdaq.com/databases/ZILLOW/data
+# US and State Level Median Household Income Data, FRED https://fred.stlouisfed.org/searchresults/?st=median%20household%20income%20by%20state&t=real&ob=t
+# US Consumer Price Index (US Inflation Dataset 1947-2023), Pavan Narne (Kaggle.com) https://www.kaggle.com/datasets/pavankrishnanarne/us-inflation-dataset-1947-present
+# US Gross Domestic Product (GDP), Macrotrends https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product
+# National Health Expenditure Data, US Centers for Medicare & Medicaid Services https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data
+# Trends in Student Aid 2022 - Excel Data (Table 1), College Board https://research.collegeboard.org/trends/student-aid
+# Dow Jones - DJIA - 100 Year Historical Chart, Macrotrends https://www.macrotrends.net/1319/dow-jones-100-year-historical-chart
+
+# Executed the below in BigQuery using SQL
+
+SELECT dmain.*
+FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain
+INNER JOIN `affordablehousing-399803.zillowdataindicators1.Zillow Indicators` as dind
+ON dmain.indicator_id = dind.string_field_0;
+
+SELECT dmain.*
+FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain
+LEFT JOIN `affordablehousing-399803.zillowdataindicators1.Zillow Indicators` as dind
+ON dmain.indicator_id = dind.string_field_0;
+
+SELECT dmain2.*, dreg.*
+FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain2
+LEFT JOIN `affordablehousing-399803.zillowdataregion1.Zillow Regions` as dreg
+ON dmain2.region_id = dreg.region_id;
+
+# Correct JOIN for ZILLOW DATA and ZILLOW REGION
+
+SELECT dmain2.*, dreg.region_type, dreg.region
+FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain2
+LEFT JOIN `affordablehousing-399803.zillowdataregion1.Zillow Regions` as dreg
+ON dmain2.region_id = dreg.region_id;
+
+# CORRECT JOIN for ZILLOW DATA/REGION and ZILLOW INDICATORS
+
+SELECT dmain3.*, dind.string_field_1, dind.string_field_2
+FROM `affordablehousing-399803.zillowdatamain3.Zillow Data with Region` as dmain3
+LEFT JOIN `affordablehousing-399803.zillowdataindicators1.Zillow Indicators` as dind
+ON dmain3.indicator_id = dind.string_field_0;
+
+# Rename Indicator columns
+
+ALTER TABLE `affordablehousing-399803.zillowdatacomplete2.Zillow Data - All`
+RENAME COLUMN string_field_1 TO indicator;
+
+ALTER TABLE `affordablehousing-399803.zillowdatacomplete2.Zillow Data - All`
+RENAME COLUMN string_field_2 TO category;
+
+# New recoded column for state
+
+sql
+
+# Extract state into new column
+
+SELECT
+  *,
+  REGEXP_EXTRACT(region, r'\b(?:AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\b') AS state
+FROM
+  `affordablehousing-399803.zillowdatacomplete2.Zillow Data - All`;
+
+# Consumer Price Index - Inflation Indicator https://www.kaggle.com/datasets/pavankrishnanarne/us-inflation-dataset-1947-present
+
+ALTER TABLE `affordablehousing-399803.US_CPI_1.US Consumer Price Index 1`
+RENAME COLUMN value TO CPI;
+
+# US GDP 1960-2023 - Macrotrends https://www.macrotrends.net/countries/USA/united-states/gdp-gross-domestic-product
+
+# Median Household Income https://alfred.stlouisfed.org/series?seid=MEHOINUSA646N&utm_source=series_page&utm_medium=related_content&utm_term=related_resources&utm_campaign=alfred
+
+# Median Household Income by state (combined in Excel before loading using Power Query) https://fred.stlouisfed.org/searchresults/?st=median%20household%20income%20by%20state&t=real&ob=t
+
+# Dow Jones Historical Chart - Macrotrends - https://www.macrotrends.net/1319/dow-jones-100-year-historical-chart
+
+# NHE Tables - Personal Health Care Expenditures (Table 6) - Centers for Medicare and Medicaid Services (CMS) https://www.cms.gov/data-research/statistics-trends-and-reports/national-health-expenditure-data/historical
+
+# Trends in Student Aid 2022 (Table 1) (truncated in Excel before uploading to BigQuery) - CollegeBoard - https://research.collegeboard.org/trends/student-aid
+
+ALTER TABLE `affordablehousing-399803.CollegeBoard_Student_Aid.US Student Aid Disbursement Over Time`
+ADD COLUMN date_column DATE;
+
+UPDATE `affordablehousing-399803.CollegeBoard_Student_Aid.US Student Aid Disbursement Over Time`
+SET date_column = DATE(CONCAT(CAST(year AS STRING), '-01-01'));
+
+# Affordable housing formulas
+
+Zillow  
+
+category = inventory and sales
+category = rentals
+
+# Baseline affordability - 50 percent (theoretically, people of median HH income should be able to afford half of available homes)
+
+# Down Payment
+Median HH income * .20 = down payment
+https://www.consumerfinance.gov/about-us/blog/how-decide-how-much-spend-your-down-payment/
+https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
+https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)
+
+# Monthly mortgage payments: (((median HH income/12)x.28) x 30) = x, x - (x * .20) = y, y + (y * .0778)
+https://www.chase.com/personal/mortgage/education/financing-a-home/how-much-you-can-afford
+https://www.bankrate.com/mortgages/30-year-mortgage-rates/ - 7.78% national average interest rate for 30-year mortgage as of 9/27/2023
+
+# Rent
+(median HH income / 12) * .30
+
+running in Python (Google Colab)
+
+median_df = pd.read_csv('median.csv')
+zillow_df = pd.read_csv('zillow.csv')
+
+project_id = 'affordablehousing-399803'  
+client = bigquery.Client(project=project_id)
+
+median_ds = 'affordablehousing-399803.US_Median_Household_Income'  
+median_tbl = 'affordablehousing-399803.US_Median_Household_Income.Median Household Income by state'   
+
+zillow_ds = 'affordablehousing-399803.zillowdatacomplete2'  
+zillow_tbl = 'affordablehousing-399803.zillowdatacomplete2.Zillow Data with State Extracted'   
+
+# Calculate 'x' based on the given formula
+x = ((median_ds['median_household_income'] / 12) * 0.28 * 30)
+#9/28 error - string must be integer, but median_household_income is an integer type?
+
+# Calculate 'y' based on the given formula
+y = x - (x * 0.20)
+
+# Calculate the final value based on the given formula
+final_value = y + (y * 0.0778)
+
+# Filter the Zillow DataFrame for the 'inventory and sales' category and calculate the count
+inventory_sales_count = len(zillow_ds[(zillow_ds['category'] == 'inventory and sales') & (zillow_ds['value'] <= final_value)])
+
+# Calculate the percentage
+total_count = len(zillow_ds)
+percentage_of_inventory_sales = (inventory_sales_count / total_count) * 100
+
+print(f"Percentage of 'inventory and sales' at and below the final value: {percentage_of_inventory_sales:.2f}%")
+
+----------
+
+#Rentals only table 
+
+CREATE OR REPLACE TABLE `affordablehousing-399803.zillowdatacomplete2.Rentals Only` AS
+SELECT date, value, region_type, state
+FROM `affordablehousing-399803.zillowdatacomplete2.Zillow Data with State Extracted`
+WHERE category = 'Rentals';
+
+SELECT * FROM `affordablehousing-399803.zillowdatacomplete2.Rentals Only` 
+WHERE value > 1 AND state IS NOT NULL;
+
+#Inventory and Sales only table
+
+CREATE OR REPLACE TABLE `affordablehousing-399803.zillowdatacomplete2.Inventory and Sales Only` AS
+SELECT date, value, region_type, state
+FROM `affordablehousing-399803.zillowdatacomplete2.Zillow Data with State Extracted`
+WHERE category = 'Inventory and sales';
+
+
+SELECT * FROM `affordablehousing-399803.zillowdatacomplete2.Inventory and Sales Only`
+WHERE value > 1 AND state IS NOT NULL; 
+
+# Filter rentals table by date
+SELECT *
+FROM `affordablehousing-399803.zillowdatacomplete2.Cleaned Rentals Only`
+WHERE date BETWEEN '2002-01-01' AND '2022-01-01'
+
+SELECT * FROM `affordablehousing-399803.truncatedzillow.Rentals Only 20 year`
+WHERE value IS NOT NULL
+  AND region_type IS NOT NULL;
+
+# Filter inventory and sales table by date
+
+SELECT * FROM `affordablehousing-399803.zillowdatacomplete2.Cleaned Inventory and Sales Only`
+WHERE date BETWEEN '2002-01-01' AND '2022-01-01';
+
+SELECT * FROM `affordablehousing-399803.truncatedzillow.Inventory and Sales Only 20 year`
+WHERE value IS NOT NULL
+  AND region_type IS NOT NULL;
+
+SELECT date FROM `affordablehousing-399803.US_Median_Household_Income.Median Household Income by state` 
+GROUP BY date 
+ORDER BY date ASC;
+
+# filter inventory and sales into 10 year 2011 thru 2020, greater than 5000, with a year-only column
+
+SELECT * ,
+  EXTRACT(YEAR FROM date) AS year_only
+FROM `affordablehousing-399803.truncatedzillow.Cleaned Inventory and Sales 20 yr`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31'
+  AND value >= 5000;
+
+# filter rentals into 10 year 2011 thru 2020, greater than 25, with a year-only column
+
+SELECT * ,
+  EXTRACT(YEAR FROM date) AS year_only 
+  FROM `affordablehousing-399803.truncatedzillow.Rentals Only 20 year`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31'
+  AND value >= 25;
+
+# Remove NULL values from other datasets
+
+#Health Care
+
+SELECT * 
+FROM `affordablehousing-399803.CollegeBoard_US_Student_Aid.US Student Aid Over Time`
+WHERE date IS NOT NULL
+  AND Total_Federal_Grants_in_Millions IS NOT NULL
+AND Total_Federal_Loans_in_Millions IS NOT NULL
+AND Federal_Work_Study_in_Millions IS NOT NULL
+AND Private_Health_Insurance_in_Billions_USD IS NOT NULL
+AND Education_Tax_Benefits_in_Millions IS NOT NULL
+AND TOTAL_FEDERAL__STATE___INSTITUTIONAL__AND_OTHER_AID_in_Millions IS NOT NULL
+AND NONFEDERAL_LOANS_in_Millions IS NOT NULL;
+
+#Student Aid
+
+SELECT * 
+FROM `affordablehousing-399803.CollegeBoard_US_Student_Aid.US Student Aid Over Time`
+WHERE date IS NOT NULL
+  AND Total_Federal_Grants_in_Millions IS NOT NULL
+AND Total_Federal_Loans_in_Millions IS NOT NULL
+AND Federal_Work_Study_in_Millions IS NOT NULL
+AND Education_Tax_Benefits_in_Millions IS NOT NULL
+AND TOTAL_FEDERAL__STATE___INSTITUTIONAL__AND_OTHER_AID_in_Millions IS NOT NULL
+AND NONFEDERAL_LOANS_in_Millions IS NOT NULL;
+
+SELECT * 
+FROM `affordablehousing-399803.Dow_Jones_Industrial_Average.Dow Jones Industrial Average - 10 Years`
+WHERE date IS NOT NULL
+AND stock_market_closing_value IS NOT NULL
+AND change_in_value IS NOT NULL;
+
+# Extract year from US Student Aid Over Time, filter to 10 year 2011-2020
+
+SELECT *, EXTRACT(YEAR FROM date) AS year_only 
+FROM `affordablehousing-399803.CollegeBoard_US_Student_Aid.US Student Aid Over Time`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31';
+
+# Extract year from US GDP, restrict to 10 year
+
+SELECT *, EXTRACT(YEAR FROM date) AS year_only 
+FROM `affordablehousing-399803.US_GDP.US GDP over time`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31';
+
+# Restrict Consumer Price Index to 10 year
+
+SELECT * FROM `affordablehousing-399803.US_CPI_1.US Consumer Price Index 1`
+WHERE date >= '2011-01-01' AND date <= '2020-12-31';
+
+# Restrict Median Household Income to 10 year
+
+SELECT *, EXTRACT(YEAR FROM date) AS year_only 
+FROM `affordablehousing-399803.US_Median_Household_Income.Median Household Income by state`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31';
+
+# Extract year from Personal Health Care Costs, 10 year
+
+SELECT Total_in_Billions_USD, Out_of_Pocket_in_Billions_USD, Health_Insurance_in_Billions_USD, Private_Health_Insurance_in_Billions_USD,Medicare_in_Billions_USD,Medicaid_in_Billions_USD, Other_Health_Insurance_Programs_in_Billions_USD, Other_Third_Party_Payers_in_Billions_USD,
+EXTRACT(YEAR FROM date) AS year_only FROM `affordablehousing-399803.CMS_Personal_Health_Care_Expenditures.Corrected Personal Health Care Expenditures 1`
+WHERE
+  date >= '2011-01-01'
+  AND date <= '2020-12-31';
+
+-----
+
+# Affordability calculations, execute in Colab using Python (see exploratory analysis)
+
+# Down Payment
+Median HH income * .20 = down payment
+https://www.consumerfinance.gov/about-us/blog/how-decide-how-much-spend-your-down-payment/
+https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
+https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)
+
+# Monthly mortgage payments: (((median HH income/12)x.28) x 30) = x, x - (x * .20) = y, y + (y * .0778)
+https://www.chase.com/personal/mortgage/education/financing-a-home/how-much-you-can-afford
+https://www.bankrate.com/mortgages/30-year-mortgage-rates/ - 7.78% national average interest rate for 30-year mortgage as of 9/27/2023
+
+# Rent
+(median HH income / 12) * .30
+https://www.chase.com/personal/banking/education/budgeting-saving/how-much-income-should-go-to-rent
+https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
