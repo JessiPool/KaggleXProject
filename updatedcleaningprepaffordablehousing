@@ -278,7 +278,7 @@ WHERE
 
 # Affordability calculations, execute in Colab using Python (see exploratory analysis)
 
-# Down Payment
+# Down Payment (deprecated - not going with down payment bc it is 20 percent of home price independent of income, and it depends on how much a family can save over an undefined period of time, which is highly variable)
 Median HH income * .20 = down payment
 https://www.consumerfinance.gov/about-us/blog/how-decide-how-much-spend-your-down-payment/
 https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
