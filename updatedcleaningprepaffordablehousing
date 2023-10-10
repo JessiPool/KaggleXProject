@@ -285,11 +285,15 @@ https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
 https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)
 
 # Monthly mortgage payments 
-(((median HH income/12)x.28) x 30) = x, x - (x * .20) = y, y + (y * .0778)
+In inventory file: home price + (home price x 7.78 percent) + ((home price + (home price x 7.78 percent)) * 3.9 percent) = monthly mortgage payment
+In median HH file: (median HH income / 12) x 28 percent = housing budget
+affordable = monthly mortgage payment <= housing budget (true/false)
 https://www.chase.com/personal/mortgage/education/financing-a-home/how-much-you-can-afford
 https://www.bankrate.com/mortgages/30-year-mortgage-rates/ - 7.78% national average interest rate for 30-year mortgage as of 9/27/2023
+https://www.nerdwallet.com/article/mortgages/closing-costs-mortgage-fees-explained - 3.9 percent average closing costs if no down payment as of 10/9/2023
 
 # Rent
-(median HH income / 12) * .30
+In median HH file: (median HH income / 12) x 28 percent = housing budget
+affordable = Rental value <= housing budget (true/false)
 https://www.chase.com/personal/banking/education/budgeting-saving/how-much-income-should-go-to-rent
 https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
