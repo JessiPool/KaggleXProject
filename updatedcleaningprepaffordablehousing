@@ -285,7 +285,7 @@ https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
 https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)
 
 # Monthly mortgage payments 
-In inventory file: home price + (home price x 7.78 percent) + ((home price + (home price x 7.78 percent)) * 3.9 percent) = monthly mortgage payment
+In inventory file: (home price + (home price x 7.78 percent) + ((home price + (home price x 7.78 percent)) * 3.9 percent)) / 360 = monthly mortgage payment
 In median HH file: (median HH income / 12) x 28 percent = housing budget
 affordable = monthly mortgage payment <= housing budget (true/false)
 https://www.chase.com/personal/mortgage/education/financing-a-home/how-much-you-can-afford
