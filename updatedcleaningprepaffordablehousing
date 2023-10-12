@@ -297,3 +297,17 @@ In median HH file: (median HH income / 12) x 28 percent = housing budget
 affordable = Rental value <= housing budget (true/false)
 https://www.chase.com/personal/banking/education/budgeting-saving/how-much-income-should-go-to-rent
 https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
+
+# Datasets ready for the linear regression model (2011-2020)
+
+# US Affordability, Rentals (2014-2020 only): usafford_pct_rent = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/us_affordability_pct_rent.csv') ('percentage' on 'year_only')
+# US Affordability, Inventory and Sales:
+
+# State Affordability, Rentals (2014-2020 only): staterent_afford_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/affordability_pct_rental_state.csv')
+# State Affordability, Inventory and Sales: medianhh_upd = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/updated_modinventory_mort.csv') ('affordable_by_state' on 'state' and 'year_only')
+
+# Consumer Price Index: cpi_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/cpi_yearlyavg.csv') ('average_CPI' by 'year_only')
+# Dow Jones Industrial Average: dow = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/dow10yr.csv')
+# Gross Domestic Product (GDP): gdp = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/gdp10yr.csv')
+# US Health Care Costs: healthcare = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/healthcare10yr.csv')
+# US Student Aid: studentaid = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/studentaid10yr.csv')
