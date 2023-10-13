@@ -283,6 +283,10 @@ WHERE value >= 50000;
 
 SELECT * FROM `affordablehousing-399803.truncatedzillow.Corrected Inventory and Sales 10 year` 
 WHERE RAND() < 0.2;
+
+# SAMPLE TABLE - 20 percent Rental
+SELECT value, state, year_only FROM `affordablehousing-399803.truncatedzillow.Rentals 10 year` 
+WHERE RAND() < 0.2;
 -----
 
 # Affordability calculations, execute in Colab using Python (see exploratory analysis)
