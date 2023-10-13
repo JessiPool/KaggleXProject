@@ -274,7 +274,7 @@ WHERE
   date >= '2011-01-01'
   AND date <= '2020-12-31';
 
-# SAMPLE TABLE - 20 percent Inventory and Sales, $60,000+
+# SAMPLE TABLE - 20 percent Inventory and Sales, $50,000+
 # https://www.experian.com/blogs/ask-experian/whats-the-lowest-mortgage-amount-you-can-get/
 # https://www.lendingtree.com/home/mortgage/small-mortgage-loans/
 SELECT value, state, year_only
