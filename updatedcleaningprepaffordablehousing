@@ -274,6 +274,11 @@ WHERE
   date >= '2011-01-01'
   AND date <= '2020-12-31';
 
+# SAMPLE TABLE - 20 percent Inventory and Sales, $60,000+ - https://www.experian.com/blogs/ask-experian/whats-the-lowest-mortgage-amount-you-can-get/
+SELECT value, state, year_only
+FROM `affordablehousing-399803.truncatedzillow.Inventory and Sales 10 year`
+WHERE value >= 60000; 
+
 -----
 
 # Affordability calculations, execute in Colab using Python (see exploratory analysis)
