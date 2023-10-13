@@ -301,10 +301,10 @@ https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
 # Datasets ready for the linear regression model (2011-2020)
 
 # US Affordability, Rentals (2014-2020 only): usafford_pct_rent = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/us_affordability_pct_rent.csv') ('percentage' on 'year_only')
-# US Affordability, Inventory and Sales:
+# US Affordability, Inventory and Sales: usmedianhh_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/usmedianhh_upd_pct.csv') (affordability_pct_us on 'year only')
 
-# State Affordability, Rentals (2014-2020 only): staterent_afford_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/affordability_pct_rental_state.csv')
-# State Affordability, Inventory and Sales: medianhh_upd = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/updated_modinventory_mort.csv') ('affordable_by_state' on 'state' and 'year_only')
+# State Affordability, Rentals (2014-2020 only): staterent_afford_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/affordability_pct_rental_state.csv') ('percentage' on 'state' and 'year_only')
+# State Affordability, Inventory and Sales: medianhh_upd = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/medianhh_upd.csv') ('affordability_pct_state' on 'state' and 'year_only')
 
 # Consumer Price Index: cpi_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/cpi_yearlyavg.csv') ('average_CPI' by 'year_only')
 # Dow Jones Industrial Average: dow = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/dow10yr.csv')
