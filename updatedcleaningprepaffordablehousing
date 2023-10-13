@@ -274,6 +274,8 @@ WHERE
   date >= '2011-01-01'
   AND date <= '2020-12-31';
 
+# ZILLOW SAMPLE TABLES
+
 # SAMPLE TABLE - 20 percent Inventory and Sales, $50,000+ - Sample Size: 298,362
 # https://www.experian.com/blogs/ask-experian/whats-the-lowest-mortgage-amount-you-can-get/
 # https://www.lendingtree.com/home/mortgage/small-mortgage-loans/
