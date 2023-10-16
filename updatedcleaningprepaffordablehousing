@@ -322,7 +322,7 @@ https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
 # State Affordability, Inventory and Sales: medianhh_upd = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/medianhh_upd.csv') ('affordability_pct_state' on 'state' and 'year_only')
 
 # Consumer Price Index: cpi_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/cpi_yearlyavg.csv') ('average_CPI' by 'year_only')
-# Dow Jones Industrial Average: dow = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/dow10yr.csv')
-# Gross Domestic Product (GDP): gdp = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/gdp10yr.csv')
-# US Health Care Costs: healthcare = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/healthcare10yr.csv')
-# US Student Aid: studentaid = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/studentaid10yr.csv')
+# Dow Jones Industrial Average: dow_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/dow_yearlyavg.csv') ('avg_stock_market_closing_value' by 'year_only')
+# Gross Domestic Product (GDP): gdp = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/gdp10yr.csv') ('GDP_by_billion_USD' by 'year_only')
+# US Health Care Costs: healthcare = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/healthcare10yr.csv') ('Out_of_Pocket_in_Billions_USD','Health_Insurance_in_Billions_USD', 'Private_Health_Insurance_in_Billions_USD', 'Medicare_in_Billions_USD', 'Medicaid_in_Billions_USD' by 'year_only')
+# US Student Aid: studentaid = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/studentaid10yr.csv') ('Total_Federal_Grants_in_Millions', 'Total_Federal_Loans_in_Millions', 'Education_Tax_Benefits_in_Millions', 'NONFEDERAL_LOANS_in_Millions' by 'year_only')
