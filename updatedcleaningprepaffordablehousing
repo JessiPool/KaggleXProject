@@ -319,7 +319,7 @@ https://www.nerdwallet.com/article/finance/money/how-much-should-i-spend-on-rent
 # US Affordability, Inventory and Sales: usmedianhh_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/usmedianhh_upd_pct.csv') (affordability_pct_us on 'year only')
 
 # State Affordability, Rentals (2014-2020 only): staterent_afford_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/affordability_pct_rental_state.csv') ('percentage' on 'state' and 'year_only')
-# State Affordability, Inventory and Sales: medianhh_upd = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/medianhh_upd.csv') ('affordability_pct_state' on 'state' and 'year_only')
+# State Affordability, Inventory and Sales: stateinv_afford_pct = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/stateinv_merge.csv') ('affordability_pct_state' on 'state' and 'year_only')
 
 # Consumer Price Index: cpi_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/cpi_yearlyavg.csv') ('average_CPI' by 'year_only')
 # Dow Jones Industrial Average: dow_yearlyavg = pd.read_csv('/content/drive/MyDrive/Data/KaggleX/pythondata/dow_yearlyavg.csv') ('avg_stock_market_closing_value' by 'year_only')
