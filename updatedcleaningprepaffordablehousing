@@ -10,7 +10,9 @@
 # Trends in Student Aid 2022 - Excel Data (Table 1), College Board https://research.collegeboard.org/trends/student-aid
 # Dow Jones - DJIA - 100 Year Historical Chart, Macrotrends https://www.macrotrends.net/1319/dow-jones-100-year-historical-chart
 
-# Executed the below in BigQuery using SQL
+# DATA CLEANING AND PREPARING
+
+# Executed the below queries in BigQuery using SQL
 
 SELECT dmain.*
 FROM `affordablehousing-399803.zillowdatamain1.Zillow Data Table` as dmain
@@ -293,11 +295,12 @@ WHERE RAND() < 0.2;
 
 # Affordability calculations, execute in Colab using Python (see exploratory analysis)
 
-# Down Payment (deprecated - not going with down payment bc it is 20 percent of home price independent of income, and it depends on how much a family can save over an undefined period of time, which is highly variable)
+~~# Down Payment 
 Median HH income * .20 = down payment
 https://www.consumerfinance.gov/about-us/blog/how-decide-how-much-spend-your-down-payment/
 https://www.rocketmortgage.com/learn/how-much-down-payment-for-a-house
-https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)
+https://www.bankrate.com/mortgages/how-much-is-a-down-payment-on-a-house/#how-much (average 13 percent down payment)~~ 
+(DEPRECATED - down payment dropped as a separate calculation because it is 20 percent of home price independent of income, and it depends on how much a family can save over an undefined period of time, which is highly variable)
 
 # Monthly mortgage payments 
 In inventory file: (home price + (home price x 7.78 percent) + ((home price + (home price x 7.78 percent)) * 3.9 percent)) / 360 = monthly mortgage payment
