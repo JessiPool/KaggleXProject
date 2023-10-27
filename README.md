@@ -10,5 +10,5 @@ Through a series of exploring and evaluating several models using various method
 
 1. [Cleaning and Preparing Project Datasets - BigQuery/SQL](updatedcleaningprepaffordablehousing)
 2. [Exploratory Analysis](AffordableHousingMatrix.ipynb)
-3. [Regression, Classification and Machine Learning, Rentals Data 2014-2020](folder/subfolder/regressiontesting.ipynb)
+3. [Regression, Classification and Machine Learning, Rentals Data 2014-2020](regressiontesting.ipynb)
 4. [Regression, Classification and Machine Learning, Inventory and Sales Data 2011-2020](regressioninventory.ipynb)
